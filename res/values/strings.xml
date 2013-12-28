@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Python mini-projects</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="main">This application implements the last five mini projects from Coursera class \"An Introduction to Interactive Programming in Python
+by Joe Warren, John Greiner, Stephen Wong, Scott Rixner\", these five mini projects are\n\"stopwatch\" - A reflex testing game,\n\"Blackjack\" - A simple implementation of blackjack,\n\"Memory\" - A simple implementaion of classic memory game,\n\"Pong\" - Classic pong implementation and\n\"RiceRocks\" - \'Asteroids\' implementation</string>
+
+</resources>
