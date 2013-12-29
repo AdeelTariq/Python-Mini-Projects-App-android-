@@ -54,7 +54,9 @@ public class Main extends SimpleBaseGameActivity{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 		        if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP) {
-		        	startActivity(new Intent(Main.this, About.class));
+		        	Intent i = new Intent(Main.this,About.class);
+		        	i.putExtra("help", "main");
+		        	startActivity(i);
 		        }
 		        return true;
 		    }};

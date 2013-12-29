@@ -9,7 +9,9 @@ import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.AutoWrap;
 import org.andengine.entity.text.Text;
+import org.andengine.entity.text.TextOptions;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
@@ -39,7 +41,19 @@ public class About extends SimpleBaseGameActivity{
 	protected void onCreateResources() {
 		    this.TRtitle = TextureRegionFactory.extractFromTexture(loadSprite("gfx/title.png"));
 		    this.TRback = TextureRegionFactory.extractFromTexture(loadSprite("gfx/back.png"));
-		    text = getResources().getString(R.string.main);
+		    if (getIntent().getExtras().getString("help").equals("stop")){
+		    	text = getResources().getString(R.string.stopwatch);
+		    }else if (getIntent().getExtras().getString("help").equals("black")){
+		    	text = getResources().getString(R.string.black);
+		    }else if (getIntent().getExtras().getString("help").equals("memory")){
+		    	text = getResources().getString(R.string.memory);
+		    }else if (getIntent().getExtras().getString("help").equals("pong")){
+		    	text = getResources().getString(R.string.pong);
+		    }else if (getIntent().getExtras().getString("help").equals("rice")){
+		    	text = getResources().getString(R.string.rice);
+		    }else{
+		    	text = getResources().getString(R.string.main);
+		    }
 		    litho = FontFactory.createFromAsset(this.getFontManager(), this.getTextureManager(), 512, 512, this.getAssets(),
 		    	    "fonts/lithospro.otf", 30, true, android.graphics.Color.parseColor("#eeeeee"));
 		    litho.load();
@@ -65,7 +79,8 @@ public class About extends SimpleBaseGameActivity{
 		        }
 		        return true;
 			    }};
-		Text desc = new Text(30, 150, litho, text, getVertexBufferObjectManager());
+	    TextOptions to = new TextOptions(AutoWrap.LETTERS, 400);
+		Text desc = new Text(30, 130, litho, text, to, getVertexBufferObjectManager());
 		aScene.attachChild(desc);
 	    aScene.attachChild(title);
 	    aScene.attachChild(back);

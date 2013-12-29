@@ -24,6 +24,8 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.adt.io.in.IInputStreamOpener;
 import org.andengine.util.debug.Debug;
+
+import android.content.Intent;
 import android.os.SystemClock;
 
 public class Ricerocks extends SimpleBaseGameActivity{
@@ -179,7 +181,9 @@ public class Ricerocks extends SimpleBaseGameActivity{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
-		        	Ricerocks.this.finish();
+					Intent i = new Intent(Ricerocks.this,About.class);
+		        	i.putExtra("help", "rice");
+		        	startActivity(i);
 		        }
 		        return true;
 			    }

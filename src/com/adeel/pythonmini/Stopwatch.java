@@ -21,6 +21,7 @@ import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.adt.io.in.IInputStreamOpener;
 import org.andengine.util.debug.Debug;
 
+import android.content.Intent;
 import android.os.SystemClock;
 
 public class Stopwatch extends SimpleBaseGameActivity{
@@ -63,7 +64,17 @@ public class Stopwatch extends SimpleBaseGameActivity{
 		}};
 		Rectangle backgroundSprite = makeColoredRectangle(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT, 0.278f, 0.278f, 0.278f);
 		aScene.attachChild(backgroundSprite);
-		Sprite title = new Sprite(245, 25, this.TRtitle, getVertexBufferObjectManager());
+		Sprite title = new Sprite(245, 25, this.TRtitle, getVertexBufferObjectManager()){
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+		        if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP) {
+		        	Intent i = new Intent(Stopwatch.this,About.class);
+		        	i.putExtra("help", "stop");
+		        	startActivity(i);
+		        }
+		        return true;
+			}
+		};
 	    Sprite back = new Sprite(712, 380, this.TRback, getVertexBufferObjectManager()){
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -76,10 +87,13 @@ public class Stopwatch extends SimpleBaseGameActivity{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 		        if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP) {
-
+		        	Intent i = new Intent(Stopwatch.this,About.class);
+		        	i.putExtra("help", "stop");
+		        	startActivity(i);
 		        }
 		        return true;
-			    }};
+		    }
+		};
 	    Sprite reset = new Sprite(0, 73, this.TRreset, getVertexBufferObjectManager()){
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -91,7 +105,8 @@ public class Stopwatch extends SimpleBaseGameActivity{
         		    stopwatch.setText(format(time));
 		        }
 		        return true;
-			}};
+			}
+		};
 	    stopwatch = new Text(120f, 200f, litho, "00:00.00", getVertexBufferObjectManager()){
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {

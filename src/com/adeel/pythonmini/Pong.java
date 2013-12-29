@@ -21,6 +21,7 @@ import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.adt.io.in.IInputStreamOpener;
 import org.andengine.util.debug.Debug;
 
+import android.content.Intent;
 import android.os.SystemClock;
 
 public class Pong extends SimpleBaseGameActivity{
@@ -115,7 +116,9 @@ public class Pong extends SimpleBaseGameActivity{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 		        if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP) {
-
+		        	Intent i = new Intent(Pong.this,About.class);
+		        	i.putExtra("help", "pong");
+		        	startActivity(i);
 		        }
 		        return true;
 			    }};

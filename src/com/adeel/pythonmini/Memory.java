@@ -24,6 +24,8 @@ import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.adt.io.in.IInputStreamOpener;
 import org.andengine.util.debug.Debug;
 
+import android.content.Intent;
+
 public class Memory extends SimpleBaseGameActivity{
 	
 	private static int CAMERA_WIDTH = 480;
@@ -120,10 +122,13 @@ public class Memory extends SimpleBaseGameActivity{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 		        if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP) {
-
+		        	Intent i = new Intent(Memory.this,About.class);
+		        	i.putExtra("help", "memory");
+		        	startActivity(i);
 		        }
 		        return true;
-			    }};
+		    }
+		};
 		Sprite restart = new Sprite(0, 110, this.TRrestart, getVertexBufferObjectManager()){
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
