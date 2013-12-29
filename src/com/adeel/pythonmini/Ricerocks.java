@@ -87,8 +87,8 @@ public class Ricerocks extends SimpleBaseGameActivity{
 			protected void onManagedUpdate(float pSecondsElapsed) {
 				time += 0.3;
 				float wtime = (time + CAMERA_WIDTH) % CAMERA_WIDTH;
-				debris1.setX(wtime + CAMERA_WIDTH/2);
-				debris2.setX(wtime - CAMERA_WIDTH/2);
+				debris1.setX(wtime + CAMERA_WIDTH);
+				debris2.setX(wtime - CAMERA_WIDTH);
 				super.onManagedUpdate(pSecondsElapsed);
 			}
 		};
