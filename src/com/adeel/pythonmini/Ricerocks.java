@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
@@ -24,7 +25,6 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.adt.io.in.IInputStreamOpener;
 import org.andengine.util.debug.Debug;
-
 import android.content.Intent;
 import android.os.SystemClock;
 
@@ -33,13 +33,14 @@ public class Ricerocks extends SimpleBaseGameActivity{
 	private static int CAMERA_WIDTH = 800;
 	private static int CAMERA_HEIGHT = 480;
 	private int score = 0, lives = 0;
-	private boolean started = false;
-	private TextureRegion TRbg, TRhud, TRthrust, TRidle, TRlaser, TRasteroids, TRright, TRleft, TRforward, TRfire, TRback, TRnew, TRsplash, TRhelp;
+	private boolean started = false; private float time = 0;
+	private TextureRegion TRbg, TRhud, TRthrust, TRidle, TRlaser, TRasteroids, TRright, TRleft, TRforward,
+	TRfire, TRback, TRnew, TRsplash, TRhelp, TRdebris;
 	private ArrayList<TextureRegion> TRexplo;
 	private Set<Asteroid> allAsteroids = new HashSet<Ricerocks.Asteroid>(10);
 	private Set<Laser> allMissiles = new HashSet<Ricerocks.Laser>(5);
 	private Ship ship;
-	private Sprite splash, New, back, help, fire, forward, left, right;
+	private Sprite splash, New, back, help, fire, forward, left, right, debris1, debris2;
 	private Scene aScene;
 	private Font litho;
 	private Text TXTscore, TXTlives;
@@ -66,6 +67,7 @@ public class Ricerocks extends SimpleBaseGameActivity{
 	    this.TRleft = TextureRegionFactory.extractFromTexture(loadSprite("rice/left.png"));
 	    this.TRforward = TextureRegionFactory.extractFromTexture(loadSprite("rice/forward.png"));
 	    this.TRfire = TextureRegionFactory.extractFromTexture(loadSprite("rice/fire.png"));
+	    this.TRdebris = TextureRegionFactory.extractFromTexture(loadSprite("rice/debris.png"));
 	    ITexture TexExplosion = loadSprite("rice/exp2.png");
 	    this.TRexplo = new ArrayList<TextureRegion>();
 	    int x=0,y = 0;
@@ -80,9 +82,22 @@ public class Ricerocks extends SimpleBaseGameActivity{
 	}
 	@Override
 	protected Scene onCreateScene() {
-		aScene = new Scene();
+		aScene = new Scene(){
+			@Override
+			protected void onManagedUpdate(float pSecondsElapsed) {
+				time += 0.3;
+				float wtime = (time + CAMERA_WIDTH) % CAMERA_WIDTH;
+				debris1.setX(wtime + CAMERA_WIDTH/2);
+				debris2.setX(wtime - CAMERA_WIDTH/2);
+				super.onManagedUpdate(pSecondsElapsed);
+			}
+		};
 		Sprite bg = new Sprite(0, 0, this.TRbg, getVertexBufferObjectManager());
 		aScene.attachChild(bg);
+		debris1 = new Sprite(0 + CAMERA_WIDTH/2, 0, this.TRdebris, getVertexBufferObjectManager());
+		aScene.attachChild(debris1);
+		debris2 = new Sprite(0 - CAMERA_WIDTH/2, 0, this.TRdebris, getVertexBufferObjectManager());
+		aScene.attachChild(debris2);
 		Sprite hud = new Sprite(20, 30, this.TRhud, getVertexBufferObjectManager());
 		hud.setZIndex(10);
 		aScene.attachChild(hud);
